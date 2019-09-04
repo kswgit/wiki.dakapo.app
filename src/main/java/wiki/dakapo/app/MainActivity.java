@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.JsResult;
@@ -62,11 +64,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Remove title bar
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //Remove notification bar
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //set content view AFTER ABOVE sequence (to avoid crash)
         setContentView(R.layout.activity_main);
 
 
@@ -90,7 +87,16 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        mWebView.setWebViewClient(new WebViewClient());
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                //hide loading image
+                findViewById(R.id.loadingTextView).setVisibility(View.GONE);
+                findViewById(R.id.LoadingLayout).setVisibility(View.GONE);
+                findViewById(R.id.mainweb).setVisibility(View.VISIBLE);
+                super.onPageFinished(view, url);
+            }
+        });
         mWebView.loadUrl("https://dakapo.wiki");
     }
 }

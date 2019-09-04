@@ -6,8 +6,8 @@ android {
         applicationId "wiki.dakapo.app"
         minSdkVersion 20
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.1"
+        versionCode 5
+        versionName "agitato carpriccioso"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
